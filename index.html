@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chemfromdsrtrio</title>
+    <style>
+        .head {
+            margin: 0 auto;
+            height: 50px;
+            background-color: green;
+            -webkit-text-fill-color: white;
+        }
+         
+        .side {
+            background-color: yellow;
+            width: 350px;
+            height: 850px;
+        }
+      
+        .beaker {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .beaker img {
+             position: absolute;
+             top: 250px;
+             right: 450px;
+             transform: translate(-50%, 0);
+             width: 500px;
+             height: 500px; 
+             z-index: 2; 
+        }
+
+        #labtable {
+            position: absolute;
+             top: 450px;
+             right: 60px;
+             transform: translate(-50%, 0);
+             width: 700px;
+             height: 500px; 
+             z-index: 3;  
+        }
+
+        #Bubble {
+            position: absolute;
+             top: 490px;
+             right: 820px;
+             transform: translate(-50%, 0);
+             width: 100px;
+             height: 100px; 
+             z-index: 3;  
+        }
+
+        /* #Bubbleactive {
+           position: absolute;
+        } */
+        .chemicalteller {
+            background-color: rgba(151, 71, 5, 0.226);
+            position: absolute;
+             top: 100px;
+             right: -277px;
+             transform: translate(-50%, 0);
+             width: 570px;
+             height: 250px; 
+             font-size: 30px;
+             z-index: 3;  
+        }
+
+        .chemicaltellerdec {
+            font-size: 20px;
+            -webkit-text-fill-color: rgb(255, 255, 255);
+            background-color: rgb(88, 41, 3);
+            position: absolute;
+             top: 76px;
+             right: -277px;
+             transform: translate(-50%, 0);
+             width: 570px;
+             height: 25px; 
+             z-index: 3;  
+        }
+
+        .chemicaltellerReacDec {
+            font-size: 20px;
+            -webkit-text-fill-color: rgb(255, 255, 255);
+            background-color: rgb(88, 41, 3);
+            position: absolute;
+             top: 350px;
+             right: -277px;
+             transform: translate(-50%, 0);
+             width: 570px;
+             height: 25px; 
+             z-index: 3;  
+        }
+
+        .chemicaltellerReac {
+            font-size: 24px;
+            -webkit-text-fill-color: rgb(0, 0, 0);
+            background-color: rgb(151, 71, 5, 0.226);
+            position: absolute;
+             top: 375px;
+             right: -277px;
+             transform: translate(-50%, 0);
+             width: 570px;
+             height: 125px; 
+             z-index: 3;  
+        }
+
+
+        .side img {
+            width: 150px;
+            height: 200px;
+            display: block; 
+            margin: 0;
+            padding: 0;
+        }
+
+        .overlaytext {
+            position: absolute;
+            top: 25px;
+            left: 90px;
+            -webkit-text-fill-color: white;
+            -webkit-text-stroke: 0.5px black;
+            transform: translate(-50%, -50%);
+            font-size: 15px;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .overlaytext2 {
+            position: absolute;
+            top: 25px;
+            left: 235px;
+            -webkit-text-fill-color: white;
+            -webkit-text-stroke: 0.5px black;
+            transform: translate(-50%, -50%);
+            font-size: 15px;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .overlaytext3 {
+            position: absolute;
+            top: 550px;
+            left: 235px;
+            -webkit-text-fill-color: white;
+            -webkit-text-stroke: 0.5px black;
+            transform: translate(-50%, -50%);
+            font-size: 15px;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+         .side {
+            position: relative;
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            flex-direction: column;
+            align-items: flex-start;
+            overflow-y: auto;
+            white-space: nowrap;
+            border: 2px solid #ccc;
+            gap: 10px;
+            column-gap: 20px;
+            padding: 10px;
+            width: 325px;
+            height: 300;
+            flex-shrink: 0;
+        }
+
+          .active {
+            display: grid;
+        }
+
+        .shadow {
+            background-color: rgb(1, 56, 1);
+        }
+
+        .forchemicals {
+            width: 350px;
+            background-color: rgb(92, 92, 9);
+            -webkit-text-fill-color: azure;
+            font-size: 25px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="head">
+        &nbsp;  <img src="images/deb.png" alt="deb" width="50px" height="50px" style="vertical-align: middle;"> &nbsp; &nbsp;
+        DSR V-CHEMISTRY LAB
+         <!-- <button type = "button" onclick = "alert('OH NOOO')" class="button1" >
+            ทดสอบ
+        </button> -->
+    </div>
+
+    <div class="shadow"><br></div>
+    <div class = "chemicalteller" id="chemicalteller1"></div>
+    <div class = "chemicaltellerdec">&nbsp; &nbsp; &nbsp;สารที่ใช้</div>
+    <div class = "chemicaltellerReacDec">&nbsp; &nbsp; &nbsp;ปฏิกิริยาเคมีที่เกิดขึ้น</div>
+     <div class = "chemicaltellerReac" id="chemicalteller2"></div>
+    <div class="forchemicals">&nbsp; &nbsp; &nbsp; สารเคมี</div>
+
+    <button onclick="switchsolution('solid')">ของแข็ง</button>
+    <button onclick="switchsolution('liquid')">ของเหลว</button>
+
+    <script>
+        function switchsolution(which) {
+          document.querySelectorAll('.side').forEach(set => set.classList.remove('active'))
+          document.getElementById(which).classList.add('active');
+        }
+
+    </script>
+
+     <div class="beaker">
+        <img id = "Beaker" src="images/jemsemptybeaker-removebg-preview.png" alt="beaker">
+        <img id = "Bubble" src= "images/bubble.gif" alt="beaker">
+    </div>
+
+    <div class="box">
+        <!-- <img id = "Beaker" src="images/jemsemptybeaker-removebg-preview.png" alt="beaker">
+        <img id = "Bubble" src= "images/bubble.gif" alt="beaker"> -->
+    </div>
+
+    <!-- <div class="fortable">
+        <img id = "labtable" src="images/labtable.webp" alt="labtable">
+    </div> -->
+
+    <div id = "solid" class="side active">     
+        <img id="CaCO3button" src="images/caco3new.png" title="CaCO3" alt="CaCO3" width="120px" height="120px"> 
+        <!-- <p class="overlaytext">CaCO3<br>แคลเซียมคาร์บอร์เนท</p> -->
+        <img id="PbNO3button" src="images/Pb.png" title = "Pb(NO3)2" alt="PbNO3" width="120px" height="120px">
+        <!-- <p class="overlaytext2">Pb(No3)2<br>เลด(II)ไนเตรต</p> -->
+        <img id="NaOHbutton" src="images/NaOHnew.png" title="NaOH" alt="NaOH" width="120px" height="120px">
+         <!-- <p class="overlaytext3">NaOH<br>โซเดียมไฮดรอกไซด์</p> -->
+        <img id="KIbutton" src="images/KI.png" title="KI" alt="NaOH" width="120px" height="120px">
+        <img id="AGNO3button" src="images/Agno333.png" title="AGNO3" alt="NaOH" width="120px" height="120px">
+         <img id="NH4CLbutton" src="images/Nh.png" title="NH4CL" alt="NaOH" width="120px" height="120px">
+        <img id="Na2CO3button" src="images/na2co3.png" title="Na2CO3" alt="NaOH" width="120px" height="120px">
+    </div>
+
+    <div id = "liquid" class = "side">
+        <img id="H2Obutton" src="images/H.png" title="H2O" alt="CaCO3" width="120px" height="120px"> 
+        <img id="HCLbutton" src="images/HCL.png" title = "HCL" alt="PbNO3" width="120px" height="120px">
+        
+    </div>
+
+      <script>
+            const CaCO3button = document.getElementById('CaCO3button')
+            const H2Obutton = document.getElementById('H2Obutton')
+            const PbNO3button = document.getElementById("PbNO3button")
+            const KIbutton = document.getElementById("KIbutton")
+            const Na2CO3button = document.getElementById('Na2CO3button')
+            const NH4CLbutton = document.getElementById('NH4CLbutton')
+            const AGNO3button = document.getElementById('AGNO3button')
+            const NaOHbutton = document.getElementById('NaOHbutton')
+            const HCLbutton = document.getElementById('HCLbutton')
+            const beaker = document.getElementById('Beaker')
+            const bubble = document.getElementById('Bubble')
+
+            let IsWatered = false;
+            let IsHCLed = false;
+            let PbNo3ED = false;
+            let Na2CO3ED = false;
+            let KIeD = false;
+            let NH4CLED = false;
+            let AgNo3ED = false;
+            let naohED = false;
+            let caco3ED = false;
+            let cd = false;
+
+            bubble.style.display = 'none';
+
+            CaCO3button.addEventListener('click', () => {
+
+                if (caco3ED == true) {
+                    return;
+                }
+
+                if (cd == true) {
+                    return;
+                }
+
+                cd = true;
+
+                if (IsHCLed == true) {
+                         beaker.src = "images/noreaction.gif" ;
+                        setTimeout(() => {
+                            bubble.style.display = 'grid';
+                             beaker.src = "images/iloveujem-removebg-preview.png";
+                              cd = false;
+                         }, 900)  
+                       caco3ED = true;
+                        document.getElementById('chemicalteller1').textContent += " + CaCO₃" 
+                        document.getElementById('chemicalteller2').textContent = "CaCO₃ (s) + 2HCl (aq) → CaCl₂ (aq) + H₂O (l) + CO₂ (g)" 
+                } else {
+                    if (IsWatered){
+                        beaker.src = "images/noreaction.gif" ;
+                         setTimeout(() => {
+                            beaker.src = "images/iloveujem-removebg-preview.png";
+                            cd = false;
+                        }, 900)
+                         caco3ED = true;
+                         document.getElementById('chemicalteller1').textContent += " + CaCO₃" 
+                }
+                }
+            });
+
+            NH4CLbutton.addEventListener('click', () => {
+
+                 if (NH4CLED == true) {
+                    return;
+                }
+
+                  if (cd == true) {
+                    return;
+                }
+
+                cd = true;
+
+                if (AgNo3ED == true) {
+                beaker.src = "images/noreaction.gif" ;
+                setTimeout(() => {
+                beaker.src = "images/white.png";
+                cd = false;
+                }, 900)  
+                 NH4CLED = true;
+                 document.getElementById('chemicalteller1').textContent += " + NH₄Cl" 
+                 document.getElementById('chemicalteller2').textContent = "AgNO₃ (aq) + NH₄Cl (aq) → AgCl (s) + NH₄NO₃ (aq)" 
+                } else {
+                    if (IsWatered){
+                     beaker.src = "images/noreaction.gif" ;
+                     setTimeout(() => {
+                    beaker.src = "images/iloveujem-removebg-preview.png";
+                    cd = false;
+                    }, 900)
+                    NH4CLED = true;
+                    document.getElementById('chemicalteller1').textContent += " + NH₄Cl" 
+                }
+                }
+            });
+
+            NaOHbutton.addEventListener('click', () => {
+
+                  if (naohED == true) {
+                    return;
+                }
+
+                  if (cd == true) {
+                    return;
+                }
+
+                cd = true;
+
+                if (AgNo3ED == true) {
+                beaker.src = "images/noreaction.gif" ;
+                setTimeout(() => {
+                beaker.src = "images/brown.png";
+                cd = false;
+                }, 900)  
+                 naohED = true;
+                 document.getElementById('chemicalteller1').textContent += " + NaOH" 
+                 document.getElementById('chemicalteller2').textContent = " 2AgNO₃ (aq) + 2NaOH (aq) → Ag₂O (s) + 2NaNO₃ (aq) " 
+                } else {
+                    if (IsWatered){
+                     beaker.src = "images/noreaction.gif" ;
+                     setTimeout(() => {
+                    beaker.src = "images/iloveujem-removebg-preview.png";
+                    cd = false;
+                    }, 900)
+                    naohED = true;
+                    document.getElementById('chemicalteller1').textContent += " + NaOH" 
+                }
+                }
+            });
+
+            AGNO3button.addEventListener('click', () => {
+
+                 if (AgNo3ED == true) {
+                    return;
+                }
+
+                  if (cd == true) {
+                    return;
+                }
+
+                cd = true;
+
+            
+                if (NH4CLED == true) {
+                beaker.src = "images/noreaction.gif" ;
+                setTimeout(() => {
+                beaker.src = "images/white.png";
+                cd = false;
+                }, 900)  
+                 AgNo3ED = true;
+                 document.getElementById('chemicalteller1').textContent += " + AgNO₃"
+                document.getElementById('chemicalteller2').textContent = "AgNO₃ (aq) + NH₄Cl (aq) → AgCl (s) + NH₄NO₃ (aq)" 
+                } if (naohED == true) {
+                beaker.src = "images/noreaction.gif" ;
+                setTimeout(() => {
+                beaker.src = "images/brown.png";
+                cd = false;
+                }, 900)  
+                 naohED = true;
+                 document.getElementById('chemicalteller1').textContent += " + AgNO₃" 
+                 document.getElementById('chemicalteller2').textContent = " 2AgNO₃ (aq) + 2NaOH (aq) → Ag₂O (s) + 2NaNO₃ (aq) " 
+                } else {
+                    if (IsWatered){
+                     beaker.src = "images/noreaction.gif" ;
+                     setTimeout(() => {
+                    beaker.src = "images/iloveujem-removebg-preview.png";
+                    cd = false;
+                    }, 900)
+                    AgNo3ED = true;
+                     document.getElementById('chemicalteller1').textContent += " + AgNO₃" 
+                }
+                }
+            });
+
+            PbNO3button.addEventListener('click', () => {
+
+                    if (PbNo3ED == true) {
+                    return;
+                }
+
+                  if (cd == true) {
+                    return;
+                }
+
+                cd = true;
+
+                if (KIeD == true) {
+                   
+                    beaker.src = "images/noreaction.gif" ;
+                     setTimeout(() => {
+                        beaker.src = "images/kno3ver3.png";
+                        cd = false;
+                     }, 900)  
+                     PbNo3ED = true;
+                      document.getElementById('chemicalteller1').textContent += " + Pb(NO₃)₂"
+                       document.getElementById('chemicalteller2').textContent = "2KI (aq) + Pb(NO₃)₂ (aq) → PbI₂ (s) + 2 KNO₃ (aq) " 
+                             
+                } else {
+                   if (Na2CO3ED == true){
+                     beaker.src = "images/noreaction.gif" ;
+                     setTimeout(() => {
+                    beaker.src = "images/gray.png";
+                    cd = false;
+                    }, 900)
+                    PbNo3ED = true;
+                    document.getElementById('chemicalteller1').textContent += " + Pb(NO₃)₂"
+                     document.getElementById('chemicalteller2').textContent = "Pb(NO₃)₂ (aq) + Na₂CO₃ (aq) → PbCO₃ (s) + 2NaNO₃ (aq)" 
+                } else {
+                    if (IsWatered){
+                     beaker.src = "images/noreaction.gif" ;
+                     setTimeout(() => {
+                    beaker.src = "images/iloveujem-removebg-preview.png";
+                    cd = false;
+                    }, 900)
+                    PbNo3ED = true;
+                    document.getElementById('chemicalteller1').textContent += " + Pb(NO₃)₂"
+                }
+                }
+            }});
+
+             KIbutton.addEventListener('click', () => {
+
+                 if (KIeD == true) {
+                    return;
+                }
+
+                  if (cd == true) {
+                    return;
+                }
+
+                cd = true;
+
+                if (PbNo3ED == true ) {
+                beaker.src = "images/noreaction.gif" ;
+                 KIeD = true;
+                setTimeout(() => {
+                beaker.src = "images/kno3ver3.png";
+                cd = false;
+                document.getElementById('chemicalteller1').textContent += " + KI"
+                 document.getElementById('chemicalteller2').textContent += "2KI (aq) + Pb(NO₃)₂ (aq) → PbI₂ (s) + 2 KNO₃ (aq) " 
+                }, 900)  
+                } else {
+                   if (IsWatered){
+                     beaker.src = "images/noreaction.gif" ;
+                     setTimeout(() => {
+                    beaker.src = "images/iloveujem-removebg-preview.png";
+                    cd = false;
+                    }, 900)
+                    KIeD = true;
+                    document.getElementById('chemicalteller1').textContent += " + KI"
+                } 
+                }
+            });
+
+             Na2CO3button.addEventListener('click', () => {
+                
+                 if (Na2CO3ED == true) {
+                    return;
+                }
+
+                  if (cd == true) {
+                    return;
+                }
+
+                cd = true;
+
+                if (PbNo3ED == true) {
+                beaker.src = "images/noreaction.gif" ;
+                Na2CO3ED = true;
+                setTimeout(() => {
+                beaker.src = "images/gray.png";
+                cd = false;
+                document.getElementById('chemicalteller1').textContent += " + Na₂CO₃"
+                document.getElementById('chemicalteller2').textContent = "Pb(NO₃)₂ (aq) + Na₂CO₃ (aq) → PbCO₃ (s) + 2NaNO₃ (aq)" 
+                }, 900)  
+                } else {
+                    
+                   if (IsWatered){
+                     beaker.src = "images/noreaction.gif" ;
+                     setTimeout(() => {
+                    cd = false;
+                    beaker.src = "images/iloveujem-removebg-preview.png";
+                    }, 900)
+                    Na2CO3ED = true;
+                    document.getElementById('chemicalteller1').textContent += " + Na₂CO₃"
+                } 
+                }
+            });
+
+            H2Obutton.addEventListener('click', () => {
+
+                 document.getElementById('chemicalteller2').textContent = "" 
+
+                beaker.src = "images/jemswaterbeaker.gif";
+                cd = true;
+                 bubble.style.display = 'none';
+                  document.getElementById('chemicalteller1').textContent = "H₂O"
+                setTimeout(() => {
+                beaker.src = "images/iloveujem-removebg-preview.png";
+                 cd = false;
+                }, 1000);
+                
+                IsWatered = true;
+                IsHCLed = false;
+                PbNo3ED = false;
+                KIeD = false;
+                Na2CO3ED = false;
+                NH4CLED = false;
+                AgNo3ED = false;
+                caco3ED = false;
+                naohED = false;
+            });
+
+             HCLbutton.addEventListener('click', () => {
+
+                 document.getElementById('chemicalteller2').textContent = "" 
+
+                beaker.src = "images/jemswaterbeaker.gif";
+                 document.getElementById('chemicalteller1').textContent = "HCl"
+                 bubble.style.display = 'none';
+
+                setTimeout(() => {
+                beaker.src = "images/iloveujem-removebg-preview.png";
+                }, 1000);
+
+                IsHCLed = true;
+                IsWatered = false;
+                PbNo3ED = false;
+                KIeD = false;
+                Na2CO3ED = false;
+                NH4CLED = false;
+                AgNo3ED = false;
+                caco3ED = false;
+                naohED = false;
+            });
+        </script>
+</body>
+</html>
